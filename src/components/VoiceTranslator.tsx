@@ -77,7 +77,7 @@ export default function VoiceTranslator() {
       <ScrollReveal>
         <div className="flex items-center gap-4 mb-4">
           <Image
-            src="/logos/voice-translator-icon.png"
+            src="/logos/talkao/voice-translator-icon.png"
             alt="Voice Translator"
             width={64}
             height={64}

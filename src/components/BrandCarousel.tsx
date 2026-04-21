@@ -15,7 +15,7 @@ const brands: Brand[] = [
     id: "talkao",
     render: () => (
       <Image
-        src="/logos/logo-negative.png"
+        src="/logos/talkao/logo-negative.png"
         alt="Talkao"
         width={220}
         height={62}
@@ -29,7 +29,7 @@ const brands: Brand[] = [
     render: () => (
       <div className="flex items-center gap-3">
         <Image
-          src="/logos/voice-translator-icon.png"
+          src="/logos/talkao/voice-translator-icon.png"
           alt=""
           width={64}
           height={64}

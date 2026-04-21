@@ -53,7 +53,7 @@ export default function BentoOverview() {
               </div>
               <div className="flex items-center gap-3 mb-3">
                 <Image
-                  src="/logos/voice-translator-icon.png"
+                  src="/logos/talkao/voice-translator-icon.png"
                   alt=""
                   width={56}
                   height={56}

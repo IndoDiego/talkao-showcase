@@ -36,7 +36,7 @@ export default function Navbar() {
       <nav className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
         <a href="#top" className="flex items-center gap-2 shrink-0">
           <Image
-            src="/logos/icon-transparent.png"
+            src="/logos/talkao/icon-transparent.png"
             alt="Talkao"
             width={28}
             height={28}
