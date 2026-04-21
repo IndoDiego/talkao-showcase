@@ -1,14 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0A0A0F;
+  /* Talkao brand palette — per identity guide (Pantone 2985C + 267C) */
+  --background: #07070C;
   --foreground: #E8E8ED;
-  --cyan: #00D4FF;
-  --violet: #7C3AED;
+  --cyan: #4EC1F4;
+  --violet: #7B5DD6; /* brand #4B269B lifted for AA on dark bg */
+  --violet-core: #4B269B; /* exact brand token, use on light surfaces */
   --amber: #F59E0B;
-  --card-bg: #12121A;
+  --card-bg: #0F0F17;
   --card-border: #1E1E2A;
+  --card-border-strong: #2A2A3A;
   --muted: #8888A0;
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --aurora-opacity: 0.5;
+  --noise-opacity: 0.03;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --background: #FAFAFB;
+  --foreground: #0A0A0F;
+  --cyan: #4EC1F4;
+  --violet: #4B269B;
+  --violet-core: #4B269B;
+  --amber: #D97706;
+  --card-bg: #FFFFFF;
+  --card-border: #E5E5EA;
+  --card-border-strong: #D4D4D8;
+  --muted: #64647A;
+  --grid-line: rgba(10, 10, 15, 0.05);
+  --aurora-opacity: 0.2;
+  --noise-opacity: 0.015;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -19,58 +43,351 @@
   --color-amber: var(--amber);
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
+  --color-card-border-strong: var(--card-border-strong);
   --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Radial glow behind hero */
-.hero-glow {
+/* ───────────────────────── Aurora background ───────────────────────── */
+.aurora {
   position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
-  top: -200px;
-  left: 50%;
-  transform: translateX(-50%);
+  inset: 0;
+  overflow: hidden;
   pointer-events: none;
   z-index: 0;
 }
-
-/* Grid background pattern */
-.grid-bg {
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+.aurora::before,
+.aurora::after,
+.aurora > span {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: var(--aurora-opacity);
+  mix-blend-mode: screen;
+}
+[data-theme="light"] .aurora::before,
+[data-theme="light"] .aurora::after,
+[data-theme="light"] .aurora > span {
+  mix-blend-mode: multiply;
+}
+.aurora::before {
+  /* Talkao violet (brand) */
+  width: 640px;
+  height: 640px;
+  left: -120px;
+  top: -180px;
+  background: radial-gradient(circle, rgba(75, 38, 155, 0.9) 0%, transparent 70%);
+  animation: aurora-drift 18s ease-in-out infinite;
+}
+.aurora::after {
+  /* Talkao cyan (brand) */
+  width: 520px;
+  height: 520px;
+  right: -140px;
+  top: 40px;
+  background: radial-gradient(circle, rgba(78, 193, 244, 0.75) 0%, transparent 70%);
+  animation: aurora-drift 22s ease-in-out -6s infinite reverse;
+}
+.aurora > span {
+  /* Violet variant — brand only, no third hue */
+  width: 420px;
+  height: 420px;
+  left: 42%;
+  top: 55%;
+  background: radial-gradient(circle, rgba(123, 93, 214, 0.55) 0%, transparent 70%);
+  animation: aurora-drift 26s ease-in-out -12s infinite;
+}
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(60px, -40px, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-50px, 30px, 0) scale(0.95);
+  }
 }
 
-/* Gradient text */
+/* ───────────────────────── Grid background ───────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 80%);
+}
+
+/* ───────────────────────── Noise overlay ───────────────────────── */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+}
+
+/* ───────────────────────── Typography ───────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  /* Talkao brand gradient: cyan (Pantone 2985C) → violet (Pantone 267C) */
+  background: linear-gradient(135deg, #4EC1F4 0%, #4B269B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-subtle {
+  background: linear-gradient(180deg, #E8E8ED 0%, #8888A0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
+/* ───────────────────────── Spotlight card (cursor-follow) ─────────────────────────
+   Consumer sets --mx/--my CSS variables via JS/pointermove.
+   The ::before paints a radial glow at that coord; ::after draws a conic
+   gradient border that appears only on hover. */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(75, 38, 155, 0.18),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(78, 193, 244, 0.6),
+    rgba(75, 38, 155, 0.35) 40%,
+    transparent 70%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.spotlight:hover::after {
+  opacity: 1;
+}
+.spotlight > * {
+  position: relative;
+  z-index: 2;
 }
 
-/* Card hover glow */
+/* Accent variant: amber/pink for Parkao, violet for NexaFlow, etc. */
+.spotlight-violet::before {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(75, 38, 155, 0.22),
+    transparent 40%
+  );
+}
+.spotlight-amber::before {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(245, 158, 11, 0.18),
+    transparent 40%
+  );
+}
+.spotlight-amber::after {
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(245, 158, 11, 0.6),
+    rgba(217, 119, 6, 0.3) 40%,
+    transparent 70%
+  );
+}
+.spotlight-cyan::after {
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(78, 193, 244, 0.7),
+    rgba(78, 193, 244, 0.2) 40%,
+    transparent 70%
+  );
+}
+
+/* ───────────────────────── Animated gradient border (always on) ───────────────────────── */
+.gradient-border {
+  position: relative;
+  isolation: isolate;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    rgba(78, 193, 244, 0.6),
+    rgba(75, 38, 155, 0.6),
+    rgba(78, 193, 244, 0.6)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-spin 8s linear infinite;
+  z-index: 0;
+}
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes border-spin {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* ───────────────────────── Marquee ───────────────────────── */
+.marquee {
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll var(--marquee-duration, 40s) linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+.marquee-reverse .marquee-track {
+  animation-direction: reverse;
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ───────────────────────── Utility: card hover glow ───────────────────────── */
+.card-glow {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
 .card-glow:hover {
-  box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+  box-shadow: 0 0 40px -10px rgba(0, 212, 255, 0.2);
+  transform: translateY(-2px);
 }
 
-/* Scrollbar */
+/* ───────────────────────── Light theme surface overrides ─────────────────────────
+   Remap the "white/X" alpha classes used across components so they render as
+   subtle dark tints on light backgrounds instead of invisible white-on-white. */
+[data-theme="light"] .bg-white\/5 {
+  background-color: rgba(10, 10, 15, 0.04);
+}
+[data-theme="light"] .border-white\/5 {
+  border-color: rgba(10, 10, 15, 0.08);
+}
+[data-theme="light"] .border-white\/10 {
+  border-color: rgba(10, 10, 15, 0.1);
+}
+[data-theme="light"] .border-white\/15 {
+  border-color: rgba(10, 10, 15, 0.15);
+}
+[data-theme="light"] .border-white\/20 {
+  border-color: rgba(10, 10, 15, 0.18);
+}
+[data-theme="light"] .border-white\/30 {
+  border-color: rgba(10, 10, 15, 0.22);
+}
+[data-theme="light"] .hover\:border-white\/30:hover {
+  border-color: rgba(10, 10, 15, 0.3);
+}
+[data-theme="light"] .hover\:bg-white\/5:hover {
+  background-color: rgba(10, 10, 15, 0.05);
+}
+
+/* Gradient-text-subtle (top line of hero) needs a dark→muted ramp on light */
+[data-theme="light"] .gradient-text-subtle {
+  background: linear-gradient(180deg, #0A0A0F 0%, #64647A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Card glow tones differently on light */
+[data-theme="light"] .card-glow:hover {
+  box-shadow: 0 10px 30px -12px rgba(10, 10, 15, 0.15);
+}
+
+/* Spotlight radial tint — brand violet on light surfaces */
+[data-theme="light"] .spotlight::before {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(75, 38, 155, 0.14),
+    transparent 40%
+  );
+}
+[data-theme="light"] .spotlight-amber::before {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(217, 119, 6, 0.14),
+    transparent 40%
+  );
+}
+[data-theme="light"] .spotlight-violet::before {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(75, 38, 155, 0.18),
+    transparent 40%
+  );
+}
+
+/* ───────────────────────── Scrollbar ───────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -80,4 +397,34 @@ html {
 ::-webkit-scrollbar-thumb {
   background: var(--card-border);
   border-radius: 3px;
+}
+
+/* ───────────────────────── Typewriter caret ───────────────────────── */
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.caret-blink {
+  display: inline-block;
+  animation: caret-blink 0.9s steps(1) infinite;
+}
+
+/* ───────────────────────── Reduced motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .aurora::before,
+  .aurora::after,
+  .aurora > span,
+  .marquee-track,
+  .gradient-border::before {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

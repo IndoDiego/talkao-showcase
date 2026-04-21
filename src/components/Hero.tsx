@@ -1,77 +1,89 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-import AnimatedCounter from "./AnimatedCounter";
-import { ChevronDown } from "lucide-react";
+import AchievementRotator from "./AchievementRotator";
+import BrandCarousel from "./BrandCarousel";
+import { ChevronDown, ArrowUpRight } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export default function Hero() {
+  const { t } = useI18n();
+
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-5 grid-bg overflow-hidden">
-      <div className="hero-glow" />
+    <section
+      id="top"
+      className="relative min-h-screen flex flex-col items-center justify-center px-5 overflow-hidden noise"
+    >
+      <div className="aurora">
+        <span />
+      </div>
+      <div className="absolute inset-0 grid-bg opacity-80" />
 
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 text-center"
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 text-center w-full max-w-3xl mx-auto"
       >
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-8"
+          transition={{ delay: 0.1, duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-3 py-1 mb-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-[11px] text-muted font-mono"
         >
-          <Image
-            src="/logos/logo-negative.png"
-            alt="Talkao"
-            width={180}
-            height={50}
-            className="mx-auto"
-            priority
-          />
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
+          {t.hero.badge}
         </motion.div>
-
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
-          <span className="gradient-text">The Ecosystem</span>
-        </h1>
-
-        <p className="text-muted text-lg md:text-xl max-w-2xl mx-auto mb-12">
-          AI-powered translation, agentic programming,
-          <br className="hidden md:block" />
-          and marketplace technology.
-        </p>
-
-        <div className="grid grid-cols-3 gap-6 md:gap-12 max-w-lg mx-auto mb-16">
-          <AnimatedCounter end={30} suffix="M+" label="Downloads" />
-          <AnimatedCounter
-            end={200}
-            prefix="€"
-            suffix="K+"
-            label="Annual Revenue"
-          />
-          <AnimatedCounter end={125} suffix="+" label="Languages" />
-        </div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-violet/30 bg-violet/5 text-violet text-sm"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.5 }}
+          className="mb-12 md:mb-14"
         >
-          <span className="w-2 h-2 rounded-full bg-violet animate-pulse" />
-          Google Play Accelerator 2026
+          <BrandCarousel />
         </motion.div>
+
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95]">
+          <span className="gradient-text-subtle">{t.hero.greeting}</span>{" "}
+          <span className="gradient-text">{t.hero.name}.</span>
+        </h1>
+
+        <p className="text-muted text-sm md:text-base mt-4 mb-10 font-mono">
+          {t.hero.tagline}
+        </p>
+
+        <div className="mb-14">
+          <AchievementRotator />
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-foreground text-background text-sm font-semibold hover:bg-foreground/90 transition-colors"
+          >
+            {t.hero.ctaTalk}
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+          <a
+            href="#ecosystem"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/15 text-sm text-muted hover:text-foreground hover:border-white/30 transition-colors"
+          >
+            {t.hero.ctaExplore}
+            <ChevronDown className="w-4 h-4" />
+          </a>
+        </div>
       </motion.div>
 
       <motion.a
-        href="#voice-translator"
+        href="#ecosystem"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
+        animate={{ opacity: 0.5 }}
+        transition={{ delay: 1.6, duration: 0.6 }}
         className="absolute bottom-8 z-10"
+        aria-label={t.hero.scrollDown}
       >
-        <ChevronDown className="w-8 h-8 text-muted animate-bounce" />
+        <ChevronDown className="w-5 h-5 text-muted animate-bounce" />
       </motion.a>
     </section>
   );

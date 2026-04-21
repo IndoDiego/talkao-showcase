@@ -33,6 +33,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# brand source files (kept out of the deployed bundle)
+/public/logos/**/*.ai
+/public/logos/**/*.zip
+
 # vercel
 .vercel
 

@@ -2,6 +2,7 @@
 
 import SectionWrapper from "./SectionWrapper";
 import ScrollReveal from "./ScrollReveal";
+import SpotlightCard from "./SpotlightCard";
 import { Smartphone, Bot, MessageSquare, Languages, BarChart3 } from "lucide-react";
 
 const products = [
@@ -36,7 +37,7 @@ export default function MoreProducts() {
   return (
     <SectionWrapper id="more">
       <ScrollReveal>
-        <h2 className="text-2xl md:text-3xl font-bold mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 tracking-tight">
           And There&apos;s More
         </h2>
       </ScrollReveal>
@@ -44,11 +45,11 @@ export default function MoreProducts() {
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
         {products.map((product, i) => (
           <ScrollReveal key={product.name} delay={i * 0.05}>
-            <div className="bg-card-bg border border-card-border rounded-xl p-4 card-glow transition-all duration-300 hover:border-white/20">
+            <SpotlightCard variant="cyan" className="p-4 h-full">
               <product.icon className="w-6 h-6 text-muted mb-2" />
               <div className="font-semibold text-sm">{product.name}</div>
               <div className="text-muted text-xs mt-1">{product.desc}</div>
-            </div>
+            </SpotlightCard>
           </ScrollReveal>
         ))}
       </div>

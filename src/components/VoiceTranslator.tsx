@@ -3,68 +3,79 @@
 import Image from "next/image";
 import SectionWrapper from "./SectionWrapper";
 import ScrollReveal from "./ScrollReveal";
+import SpotlightCard from "./SpotlightCard";
 import Badge from "./Badge";
-import { Languages, Mic, Brain, BarChart3, ExternalLink } from "lucide-react";
-
-const stats = [
-  { value: "30M+", label: "Downloads" },
-  { value: "170K", label: "Monthly Active Users" },
-  { value: "€200K+", label: "Annual Revenue" },
-  { value: "6.7x", label: "ROAS" },
-];
-
-const features = [
-  { icon: Languages, text: "125+ language combinations" },
-  { icon: Mic, text: "Real-time voice translation" },
-  { icon: Brain, text: "7 AI Chat Assistants" },
-  { icon: BarChart3, text: "Smart Paywalls + A/B Testing" },
-];
+import {
+  Languages,
+  Mic,
+  Brain,
+  BarChart3,
+  Camera,
+  ScanLine,
+  ExternalLink,
+  ArrowUpRight,
+} from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export default function VoiceTranslator() {
+  const { t } = useI18n();
+  const v = t.voice;
+
+  const stats = [
+    { value: "30M+", label: v.stats.downloads },
+    { value: "170K", label: v.stats.mau },
+    { value: "€200K+", label: v.stats.revenue },
+    { value: "6.7x", label: v.stats.roas },
+  ];
+
+  const features = [
+    { icon: Languages, text: v.features.languages },
+    { icon: Mic, text: v.features.realtime },
+    { icon: Brain, text: v.features.assistants },
+    { icon: BarChart3, text: v.features.paywalls },
+  ];
+
   return (
     <SectionWrapper id="voice-translator">
       <ScrollReveal>
         <div className="flex items-center gap-4 mb-4">
           <Image
-            src="/logos/icon-transparent.png"
+            src="/logos/voice-translator-icon.png"
             alt="Voice Translator"
-            width={56}
-            height={56}
-            className="rounded-xl"
+            width={64}
+            height={64}
+            className="rounded-[22%] shadow-lg shadow-cyan/20"
           />
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Badge variant="amber">Flagship Product</Badge>
-              <Badge variant="violet">Google Play Accelerator 2026</Badge>
+              <Badge variant="amber">{v.badgeA}</Badge>
+              <Badge variant="violet">{v.badgeB}</Badge>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Voice Translator
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+              {v.title}
             </h2>
           </div>
         </div>
-        <p className="text-muted text-lg mb-8">
-          AI-Powered Real-Time Translation
-        </p>
+        <p className="text-muted text-lg mb-8">{v.subtitle}</p>
       </ScrollReveal>
 
-      {/* Stats row */}
       <ScrollReveal delay={0.1}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {stats.map((stat) => (
-            <div
+            <SpotlightCard
               key={stat.label}
-              className="bg-card-bg border border-card-border rounded-xl p-4 text-center"
+              variant="cyan"
+              className="p-4 text-center"
             >
               <div className="font-mono text-2xl font-bold gradient-text">
                 {stat.value}
               </div>
               <div className="text-muted text-sm mt-1">{stat.label}</div>
-            </div>
+            </SpotlightCard>
           ))}
         </div>
       </ScrollReveal>
 
-      {/* Features */}
       <ScrollReveal delay={0.2}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
           {features.map(({ icon: Icon, text }) => (
@@ -79,52 +90,54 @@ export default function VoiceTranslator() {
         </div>
       </ScrollReveal>
 
-      {/* Accelerator callout */}
       <ScrollReveal delay={0.3}>
-        <div className="bg-violet/5 border border-violet/20 rounded-xl p-5 mb-6">
-          <div className="flex items-start gap-3">
-            <span className="text-2xl">🚀</span>
-            <div>
-              <div className="font-semibold mb-1">
-                Accelerator Transformation
+        <div className="gradient-border rounded-xl">
+          <div className="bg-violet/5 rounded-xl p-5 mb-6">
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">🚀</span>
+              <div>
+                <div className="font-semibold mb-1">{v.callout.title}</div>
+                <p className="text-muted text-sm">{v.callout.body}</p>
               </div>
-              <p className="text-muted text-sm">
-                10+ components shipped in 4 weeks. Average 4 days from Google
-                mentor recommendation to production code. Target: 3x MRR
-                through data-driven monetization.
-              </p>
             </div>
           </div>
         </div>
       </ScrollReveal>
 
-      {/* Revenue projection */}
       <ScrollReveal delay={0.4}>
-        <div className="bg-card-bg border border-card-border rounded-xl p-5">
+        <SpotlightCard variant="cyan" className="p-5">
           <div className="text-sm text-muted mb-3 font-mono">
-            ANNUAL REVENUE PROJECTION
+            {v.projection.label}
           </div>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <div className="text-sm text-muted w-20">Current</div>
-              <div className="flex-1 bg-background rounded-full h-6 overflow-hidden">
+              <div className="text-sm text-muted w-20">
+                {v.projection.current}
+              </div>
+              <div className="flex-1 bg-background rounded-full h-6 overflow-hidden border border-card-border">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-violet/60 to-violet flex items-center justify-end pr-2"
+                  className="h-full rounded-full bg-gradient-to-r from-violet/70 to-violet flex items-center justify-end pr-2"
                   style={{ width: "15%" }}
                 >
-                  <span className="text-xs font-mono font-bold">0.15%</span>
+                  <span className="text-xs font-mono font-bold text-white">
+                    0.15%
+                  </span>
                 </div>
               </div>
               <div className="font-mono text-sm w-24 text-right">€173K</div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="text-sm text-muted w-20">Target</div>
-              <div className="flex-1 bg-background rounded-full h-6 overflow-hidden">
+              <div className="text-sm text-muted w-20">
+                {v.projection.target}
+              </div>
+              <div className="flex-1 bg-background rounded-full h-6 overflow-hidden border border-card-border">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-cyan/60 to-cyan flex items-center justify-end pr-2"
+                  className="h-full rounded-full bg-gradient-to-r from-cyan/70 to-cyan flex items-center justify-end pr-2"
                   style={{ width: "33%" }}
                 >
-                  <span className="text-xs font-mono font-bold">1.0%</span>
+                  <span className="text-xs font-mono font-bold text-white">
+                    1.0%
+                  </span>
                 </div>
               </div>
               <div className="font-mono text-sm w-24 text-right text-cyan">
@@ -132,13 +145,15 @@ export default function VoiceTranslator() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <div className="text-sm text-muted w-20">Benchmark</div>
-              <div className="flex-1 bg-background rounded-full h-6 overflow-hidden">
+              <div className="text-sm text-muted w-20">
+                {v.projection.benchmark}
+              </div>
+              <div className="flex-1 bg-background rounded-full h-6 overflow-hidden border border-card-border">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-amber/60 to-amber flex items-center justify-end pr-2"
+                  className="h-full rounded-full bg-gradient-to-r from-amber/70 to-amber flex items-center justify-end pr-2"
                   style={{ width: "100%" }}
                 >
-                  <span className="text-xs font-mono font-bold text-background">
+                  <span className="text-xs font-mono font-bold text-white">
                     3.0%
                   </span>
                 </div>
@@ -148,14 +163,10 @@ export default function VoiceTranslator() {
               </div>
             </div>
           </div>
-          <p className="text-muted text-xs mt-3">
-            Conversion rate vs. annual revenue — same 170K users, zero
-            additional ad spend
-          </p>
-        </div>
+          <p className="text-muted text-xs mt-3">{v.projection.note}</p>
+        </SpotlightCard>
       </ScrollReveal>
 
-      {/* CTA */}
       <ScrollReveal delay={0.5}>
         <a
           href="https://play.google.com/store/apps/details?id=com.ticktalk.translatevoice&utm_source=showcase&utm_medium=qr&utm_campaign=summit"
@@ -163,8 +174,77 @@ export default function VoiceTranslator() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 bg-cyan/10 border border-cyan/30 text-cyan rounded-lg text-sm hover:bg-cyan/20 transition-colors"
         >
-          View on Google Play <ExternalLink className="w-4 h-4" />
+          {v.cta} <ExternalLink className="w-4 h-4" />
         </a>
+      </ScrollReveal>
+
+      {/* Translation suite — sister apps */}
+      <ScrollReveal delay={0.6}>
+        <div className="mt-12 pt-8 border-t border-card-border">
+          <div className="text-xs font-mono text-muted uppercase tracking-[0.2em] mb-4">
+            {v.suite.label}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <SpotlightCard
+              as="a"
+              href="https://play.google.com/store/apps/details?id=com.ticktalk.cameratranslator"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="cyan"
+              className="p-4 flex items-start gap-3 group"
+            >
+              <div className="w-10 h-10 rounded-xl bg-cyan/10 border border-cyan/20 grid place-items-center shrink-0">
+                <Camera className="w-5 h-5 text-cyan" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <span className="font-semibold text-sm truncate">
+                    {v.suite.photo.name}
+                  </span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-cyan opacity-50 group-hover:opacity-100 transition-opacity shrink-0" />
+                </div>
+                <p className="text-muted text-xs leading-snug">
+                  {v.suite.photo.desc}
+                </p>
+              </div>
+            </SpotlightCard>
+
+            <SpotlightCard
+              as="a"
+              href="https://play.google.com/store/apps/details?id=com.appgroup.app.arcamera"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="cyan"
+              className="p-4 flex items-start gap-3 group"
+            >
+              <div className="w-10 h-10 rounded-xl bg-cyan/10 border border-cyan/20 grid place-items-center shrink-0">
+                <ScanLine className="w-5 h-5 text-cyan" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <span className="font-semibold text-sm truncate">
+                    {v.suite.ar.name}
+                  </span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-cyan opacity-50 group-hover:opacity-100 transition-opacity shrink-0" />
+                </div>
+                <p className="text-muted text-xs leading-snug">
+                  {v.suite.ar.desc}
+                </p>
+              </div>
+            </SpotlightCard>
+          </div>
+
+          <a
+            href="https://play.google.com/store/apps/dev?id=8358116023073556533"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 mt-4 text-xs text-muted hover:text-foreground transition-colors group"
+          >
+            <span>{v.suite.seeAll}</span>
+            <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+          </a>
+        </div>
       </ScrollReveal>
     </SectionWrapper>
   );

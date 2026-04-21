@@ -2,8 +2,10 @@
 
 import SectionWrapper from "./SectionWrapper";
 import ScrollReveal from "./ScrollReveal";
+import SpotlightCard from "./SpotlightCard";
 import Badge from "./Badge";
 import { ExternalLink, Sparkles } from "lucide-react";
+import { useI18n } from "@/i18n/I18nProvider";
 
 const packages = [
   { name: "Ignite", price: "$1,500" },
@@ -18,32 +20,30 @@ const retainers = [
 ];
 
 export default function NexaFlow() {
+  const { t } = useI18n();
+  const n = t.nexaflow;
+
   return (
     <SectionWrapper id="nexaflow">
       <ScrollReveal>
-        <Badge variant="violet">B2B AI Platform</Badge>
-        <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-2">NexaFlow</h2>
-        <p className="text-muted text-lg mb-8">
-          AI Automation Consultancy & Web Platform
-        </p>
+        <Badge variant="violet">{n.badge}</Badge>
+        <h2 className="text-3xl md:text-5xl font-bold mt-3 mb-2 tracking-tight">
+          {n.title}
+        </h2>
+        <p className="text-muted text-lg mb-8">{n.subtitle}</p>
       </ScrollReveal>
 
       <ScrollReveal delay={0.1}>
-        <div className="bg-card-bg border border-card-border rounded-xl p-5 mb-6">
+        <SpotlightCard variant="violet" className="p-5 mb-6">
           <div className="flex items-start gap-3 mb-4">
             <Sparkles className="w-6 h-6 text-violet shrink-0 mt-0.5" />
-            <p className="text-sm text-muted">
-              We build AI-powered websites and automation systems for businesses.
-              Full-stack delivery with custom AI agents, Stripe payments, and
-              ongoing support retainers.
-            </p>
+            <p className="text-sm text-muted">{n.description}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {/* Packages */}
             <div>
               <div className="text-xs font-mono text-muted mb-2 uppercase tracking-wider">
-                Packages
+                {n.packagesLabel}
               </div>
               <div className="space-y-2">
                 {packages.map((pkg) => (
@@ -60,10 +60,9 @@ export default function NexaFlow() {
               </div>
             </div>
 
-            {/* Retainers */}
             <div>
               <div className="text-xs font-mono text-muted mb-2 uppercase tracking-wider">
-                Retainers
+                {n.retainersLabel}
               </div>
               <div className="space-y-2">
                 {retainers.map((ret) => (
@@ -80,7 +79,7 @@ export default function NexaFlow() {
               </div>
             </div>
           </div>
-        </div>
+        </SpotlightCard>
       </ScrollReveal>
 
       <ScrollReveal delay={0.2}>
@@ -108,7 +107,7 @@ export default function NexaFlow() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-violet/10 border border-violet/30 text-violet rounded-lg text-sm hover:bg-violet/20 transition-colors"
         >
-          Visit nexaflow.work <ExternalLink className="w-4 h-4" />
+          {n.cta} <ExternalLink className="w-4 h-4" />
         </a>
       </ScrollReveal>
     </SectionWrapper>
