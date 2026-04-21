@@ -4,19 +4,18 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { ReactNode, useEffect, useState } from "react";
 import OffiwizWordmark from "./brand/OffiwizWordmark";
-import { useTheme } from "@/theme/ThemeProvider";
 
 type Brand = {
   id: string;
-  render: (theme: "dark" | "light") => ReactNode;
+  render: () => ReactNode;
 };
 
 const brands: Brand[] = [
   {
     id: "talkao",
-    render: (theme) => (
+    render: () => (
       <Image
-        src={theme === "light" ? "/logos/logo.png" : "/logos/logo-negative.png"}
+        src="/logos/logo-negative.png"
         alt="Talkao"
         width={220}
         height={62}
@@ -59,30 +58,20 @@ const brands: Brand[] = [
   },
   {
     id: "parkao",
-    render: (theme) =>
-      theme === "light" ? (
+    render: () => (
+      <div className="flex items-center gap-3">
         <Image
-          src="/logos/parkao/RGB/logo-horizontal.jpg"
-          alt="Parkao"
-          width={820}
-          height={290}
-          className="h-16 md:h-20 w-auto"
-          style={{ mixBlendMode: "multiply" }}
+          src="/logos/parkao/RGB/icono.png"
+          alt=""
+          width={80}
+          height={80}
+          className="h-12 md:h-14 w-auto"
         />
-      ) : (
-        <div className="flex items-center gap-3">
-          <Image
-            src="/logos/parkao/RGB/icono.png"
-            alt=""
-            width={80}
-            height={80}
-            className="h-12 md:h-14 w-auto"
-          />
-          <span className="text-4xl md:text-5xl font-bold tracking-tight">
-            Parkao
-          </span>
-        </div>
-      ),
+        <span className="text-4xl md:text-5xl font-bold tracking-tight">
+          Parkao
+        </span>
+      </div>
+    ),
   },
 ];
 
@@ -90,7 +79,6 @@ const INTERVAL_MS = 2800;
 
 export default function BrandCarousel() {
   const reduce = useReducedMotion();
-  const { theme } = useTheme();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -116,22 +104,20 @@ export default function BrandCarousel() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            theme === "light"
-              ? "radial-gradient(220px 100px at 50% 50%, rgba(75,38,155,0.09), transparent 70%)"
-              : "radial-gradient(180px 80px at 50% 50%, rgba(75,38,155,0.22), transparent 70%)",
+            "radial-gradient(180px 80px at 50% 50%, rgba(75,38,155,0.22), transparent 70%)",
         }}
       />
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={current.id + theme}
+          key={current.id}
           initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -12, filter: "blur(8px)" }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="relative z-10 flex items-center justify-center"
         >
-          {current.render(theme)}
+          {current.render()}
         </motion.div>
       </AnimatePresence>
 

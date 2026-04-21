@@ -6,7 +6,6 @@
   --foreground: #E8E8ED;
   --cyan: #4EC1F4;
   --violet: #7B5DD6; /* brand #4B269B lifted for AA on dark bg */
-  --violet-core: #4B269B; /* exact brand token, use on light surfaces */
   --amber: #F59E0B;
   --card-bg: #0F0F17;
   --card-border: #1E1E2A;
@@ -16,23 +15,6 @@
   --aurora-opacity: 0.5;
   --noise-opacity: 0.03;
   color-scheme: dark;
-}
-
-[data-theme="light"] {
-  --background: #FAFAFB;
-  --foreground: #0A0A0F;
-  --cyan: #4EC1F4;
-  --violet: #4B269B;
-  --violet-core: #4B269B;
-  --amber: #D97706;
-  --card-bg: #FFFFFF;
-  --card-border: #E5E5EA;
-  --card-border-strong: #D4D4D8;
-  --muted: #64647A;
-  --grid-line: rgba(10, 10, 15, 0.05);
-  --aurora-opacity: 0.2;
-  --noise-opacity: 0.015;
-  color-scheme: light;
 }
 
 @theme inline {
@@ -57,7 +39,6 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ───────────────────────── Aurora background ───────────────────────── */
@@ -77,11 +58,6 @@ body {
   filter: blur(90px);
   opacity: var(--aurora-opacity);
   mix-blend-mode: screen;
-}
-[data-theme="light"] .aurora::before,
-[data-theme="light"] .aurora::after,
-[data-theme="light"] .aurora > span {
-  mix-blend-mode: multiply;
 }
 .aurora::before {
   /* Talkao violet (brand) */
@@ -322,69 +298,6 @@ body {
 .card-glow:hover {
   box-shadow: 0 0 40px -10px rgba(0, 212, 255, 0.2);
   transform: translateY(-2px);
-}
-
-/* ───────────────────────── Light theme surface overrides ─────────────────────────
-   Remap the "white/X" alpha classes used across components so they render as
-   subtle dark tints on light backgrounds instead of invisible white-on-white. */
-[data-theme="light"] .bg-white\/5 {
-  background-color: rgba(10, 10, 15, 0.04);
-}
-[data-theme="light"] .border-white\/5 {
-  border-color: rgba(10, 10, 15, 0.08);
-}
-[data-theme="light"] .border-white\/10 {
-  border-color: rgba(10, 10, 15, 0.1);
-}
-[data-theme="light"] .border-white\/15 {
-  border-color: rgba(10, 10, 15, 0.15);
-}
-[data-theme="light"] .border-white\/20 {
-  border-color: rgba(10, 10, 15, 0.18);
-}
-[data-theme="light"] .border-white\/30 {
-  border-color: rgba(10, 10, 15, 0.22);
-}
-[data-theme="light"] .hover\:border-white\/30:hover {
-  border-color: rgba(10, 10, 15, 0.3);
-}
-[data-theme="light"] .hover\:bg-white\/5:hover {
-  background-color: rgba(10, 10, 15, 0.05);
-}
-
-/* Gradient-text-subtle (top line of hero) needs a dark→muted ramp on light */
-[data-theme="light"] .gradient-text-subtle {
-  background: linear-gradient(180deg, #0A0A0F 0%, #64647A 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-/* Card glow tones differently on light */
-[data-theme="light"] .card-glow:hover {
-  box-shadow: 0 10px 30px -12px rgba(10, 10, 15, 0.15);
-}
-
-/* Spotlight radial tint — brand violet on light surfaces */
-[data-theme="light"] .spotlight::before {
-  background: radial-gradient(
-    420px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(75, 38, 155, 0.14),
-    transparent 40%
-  );
-}
-[data-theme="light"] .spotlight-amber::before {
-  background: radial-gradient(
-    420px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(217, 119, 6, 0.14),
-    transparent 40%
-  );
-}
-[data-theme="light"] .spotlight-violet::before {
-  background: radial-gradient(
-    420px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(75, 38, 155, 0.18),
-    transparent 40%
-  );
 }
 
 /* ───────────────────────── Scrollbar ───────────────────────── */

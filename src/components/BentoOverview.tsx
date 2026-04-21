@@ -62,9 +62,9 @@ export default function BentoOverview() {
               <p className="text-muted text-sm max-w-md">{b.voice.desc}</p>
             </div>
 
-            <div className="mt-8 grid grid-cols-3 gap-4">
+            <div className="mt-8 grid grid-cols-3 gap-2 md:gap-4">
               <div>
-                <div className="font-mono text-3xl font-bold gradient-text">
+                <div className="font-mono text-xl sm:text-2xl md:text-3xl font-bold gradient-text whitespace-nowrap">
                   30M+
                 </div>
                 <div className="text-muted text-xs mt-0.5">
@@ -72,7 +72,7 @@ export default function BentoOverview() {
                 </div>
               </div>
               <div>
-                <div className="font-mono text-3xl font-bold gradient-text">
+                <div className="font-mono text-xl sm:text-2xl md:text-3xl font-bold gradient-text whitespace-nowrap">
                   €200K+
                 </div>
                 <div className="text-muted text-xs mt-0.5">
@@ -80,7 +80,7 @@ export default function BentoOverview() {
                 </div>
               </div>
               <div>
-                <div className="font-mono text-3xl font-bold gradient-text">
+                <div className="font-mono text-xl sm:text-2xl md:text-3xl font-bold gradient-text whitespace-nowrap">
                   6.7×
                 </div>
                 <div className="text-muted text-xs mt-0.5">

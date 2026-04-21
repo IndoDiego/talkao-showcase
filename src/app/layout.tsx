@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Barlow, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/i18n/I18nProvider";
-import { ThemeProvider, themeInitScript } from "@/theme/ThemeProvider";
 
 // Talkao brand typography — Barlow (per identity guide)
 const barlow = Barlow({
@@ -21,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Talkao Ecosystem — Voice Translator & More",
   description:
-    "30M+ downloads. 6 companies. 45 projects. From AI translation to parking marketplaces. Built by Diego Jarrin.",
+    "30M+ downloads. 4 companies. From AI translation to parking marketplaces. Built by Diego Jarrin.",
   openGraph: {
     title: "Talkao Ecosystem — Showcase",
     description:
@@ -39,16 +38,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${barlow.variable} ${jetbrainsMono.variable} h-full antialiased`}
-      suppressHydrationWarning
+      className={`${barlow.variable} ${jetbrainsMono.variable} h-full antialiased dark`}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <ThemeProvider>
-          <I18nProvider>{children}</I18nProvider>
-        </ThemeProvider>
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   );

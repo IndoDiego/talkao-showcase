@@ -17,6 +17,42 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 
+interface ProjectionRowProps {
+  label: string;
+  percent: string;
+  percentValue: number;
+  barClass: string;
+  currency: string;
+  currencyClass?: string;
+}
+
+function ProjectionRow({
+  label,
+  percent,
+  percentValue,
+  barClass,
+  currency,
+  currencyClass = "",
+}: ProjectionRowProps) {
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-1.5 text-xs font-mono">
+        <div className="flex items-center gap-2">
+          <span className="text-muted uppercase tracking-wider">{label}</span>
+          <span className="font-bold">{percent}</span>
+        </div>
+        <span className={`font-bold ${currencyClass || ""}`}>{currency}</span>
+      </div>
+      <div className="bg-background rounded-full h-2.5 overflow-hidden border border-card-border">
+        <div
+          className={`h-full rounded-full bg-gradient-to-r ${barClass}`}
+          style={{ width: `${percentValue}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function VoiceTranslator() {
   const { t } = useI18n();
   const v = t.voice;
@@ -109,61 +145,33 @@ export default function VoiceTranslator() {
           <div className="text-sm text-muted mb-3 font-mono">
             {v.projection.label}
           </div>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <div className="text-sm text-muted w-20">
-                {v.projection.current}
-              </div>
-              <div className="flex-1 bg-background rounded-full h-6 overflow-hidden border border-card-border">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-violet/70 to-violet flex items-center justify-end pr-2"
-                  style={{ width: "15%" }}
-                >
-                  <span className="text-xs font-mono font-bold text-white">
-                    0.15%
-                  </span>
-                </div>
-              </div>
-              <div className="font-mono text-sm w-24 text-right">€173K</div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="text-sm text-muted w-20">
-                {v.projection.target}
-              </div>
-              <div className="flex-1 bg-background rounded-full h-6 overflow-hidden border border-card-border">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-cyan/70 to-cyan flex items-center justify-end pr-2"
-                  style={{ width: "33%" }}
-                >
-                  <span className="text-xs font-mono font-bold text-white">
-                    1.0%
-                  </span>
-                </div>
-              </div>
-              <div className="font-mono text-sm w-24 text-right text-cyan">
-                €360K
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="text-sm text-muted w-20">
-                {v.projection.benchmark}
-              </div>
-              <div className="flex-1 bg-background rounded-full h-6 overflow-hidden border border-card-border">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-amber/70 to-amber flex items-center justify-end pr-2"
-                  style={{ width: "100%" }}
-                >
-                  <span className="text-xs font-mono font-bold text-white">
-                    3.0%
-                  </span>
-                </div>
-              </div>
-              <div className="font-mono text-sm w-24 text-right text-amber">
-                €1.2M+
-              </div>
-            </div>
+          <div className="space-y-4">
+            <ProjectionRow
+              label={v.projection.current}
+              percent="0.15%"
+              percentValue={15}
+              barClass="from-violet/70 to-violet"
+              currency="€173K"
+              currencyClass=""
+            />
+            <ProjectionRow
+              label={v.projection.target}
+              percent="1.0%"
+              percentValue={33}
+              barClass="from-cyan/70 to-cyan"
+              currency="€360K"
+              currencyClass="text-cyan"
+            />
+            <ProjectionRow
+              label={v.projection.benchmark}
+              percent="3.0%"
+              percentValue={100}
+              barClass="from-amber/70 to-amber"
+              currency="€1.2M+"
+              currencyClass="text-amber"
+            />
           </div>
-          <p className="text-muted text-xs mt-3">{v.projection.note}</p>
+          <p className="text-muted text-xs mt-4">{v.projection.note}</p>
         </SpotlightCard>
       </ScrollReveal>
 
