@@ -153,7 +153,7 @@ export default function VoiceTranslator() {
             <ProjectionRow
               label={v.projection.current}
               percent="0.15%"
-              percentValue={15}
+              percentValue={5}
               barClass="from-violet/70 to-violet"
               currency="€174K"
               currencyClass=""
@@ -163,7 +163,7 @@ export default function VoiceTranslator() {
               percent="1.0%"
               percentValue={33}
               barClass="from-cyan/70 to-cyan"
-              currency="€360K"
+              currency="€1.16M"
               currencyClass="text-cyan"
             />
             <ProjectionRow
@@ -171,7 +171,7 @@ export default function VoiceTranslator() {
               percent="3.0%"
               percentValue={100}
               barClass="from-amber/70 to-amber"
-              currency="€1.2M+"
+              currency="€3.48M"
               currencyClass="text-amber"
             />
           </div>
