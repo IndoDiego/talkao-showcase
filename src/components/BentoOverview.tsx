@@ -77,7 +77,7 @@ export default function BentoOverview() {
               </div>
               <div>
                 <div className="font-mono text-xl sm:text-2xl md:text-3xl font-bold gradient-text whitespace-nowrap">
-                  €200K+
+                  €174K
                 </div>
                 <div className="text-muted text-xs mt-0.5">
                   {b.voice.statRevenue}

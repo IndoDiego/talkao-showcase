@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Talkao Ecosystem — Showcase",
     description:
-      "30M+ downloads. €200K+ annual revenue. Bootstrapped. Google Play Accelerator 2026.",
+      "30M+ downloads. €174K annual revenue. Bootstrapped. Google Play Accelerator 2026.",
     type: "website",
   },
   robots: "noindex",

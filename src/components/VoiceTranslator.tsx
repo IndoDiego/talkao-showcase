@@ -61,7 +61,7 @@ export default function VoiceTranslator() {
   const stats = [
     { value: "30M+", label: v.stats.downloads },
     { value: "170K", label: v.stats.mau },
-    { value: "€200K+", label: v.stats.revenue },
+    { value: "€174K", label: v.stats.revenue },
     { value: "6.7x", label: v.stats.roas },
   ];
 
@@ -155,7 +155,7 @@ export default function VoiceTranslator() {
               percent="0.15%"
               percentValue={15}
               barClass="from-violet/70 to-violet"
-              currency="€173K"
+              currency="€174K"
               currencyClass=""
             />
             <ProjectionRow
