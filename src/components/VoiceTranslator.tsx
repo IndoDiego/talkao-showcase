@@ -5,6 +5,7 @@ import SectionWrapper from "./SectionWrapper";
 import ScrollReveal from "./ScrollReveal";
 import SpotlightCard from "./SpotlightCard";
 import Badge from "./Badge";
+import GoogleDots from "./brand/GoogleDots";
 import {
   Languages,
   Mic,
@@ -85,7 +86,10 @@ export default function VoiceTranslator() {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <Badge variant="amber">{v.badgeA}</Badge>
-              <Badge variant="violet">{v.badgeB}</Badge>
+              <Badge variant="violet">
+                <GoogleDots size="sm" className="mr-1.5" />
+                {v.badgeB}
+              </Badge>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
               {v.title}

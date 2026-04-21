@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import AchievementRotator from "./AchievementRotator";
 import BrandCarousel from "./BrandCarousel";
+import GoogleDots from "./brand/GoogleDots";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 
@@ -31,28 +32,7 @@ export default function Hero() {
           transition={{ delay: 0.1, duration: 0.5 }}
           className="inline-flex items-center gap-2.5 px-3 py-1 mb-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-[11px] text-muted font-mono"
         >
-          <span
-            aria-hidden
-            className="inline-flex items-center gap-[3px]"
-            title="Google Play Accelerator"
-          >
-            <span
-              className="io-dot"
-              style={{ background: "#4285F4", animationDelay: "0s" }}
-            />
-            <span
-              className="io-dot"
-              style={{ background: "#EA4335", animationDelay: "0.15s" }}
-            />
-            <span
-              className="io-dot"
-              style={{ background: "#FBBC04", animationDelay: "0.3s" }}
-            />
-            <span
-              className="io-dot"
-              style={{ background: "#34A853", animationDelay: "0.45s" }}
-            />
-          </span>
+          <GoogleDots />
           {t.hero.badge}
         </motion.div>
 

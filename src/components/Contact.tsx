@@ -4,6 +4,7 @@ import SectionWrapper from "./SectionWrapper";
 import ScrollReveal from "./ScrollReveal";
 import SpotlightCard from "./SpotlightCard";
 import BrandCarousel from "./BrandCarousel";
+import GoogleDots from "./brand/GoogleDots";
 import { Mail, Calendar, Link, FileDown } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 
@@ -92,8 +93,8 @@ export default function Contact() {
       <ScrollReveal delay={0.5}>
         <div className="text-center">
           <p className="text-muted text-sm italic mb-4">{c.quote}</p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-violet/30 bg-violet/5 text-violet text-xs">
-            <span className="w-2 h-2 rounded-full bg-violet animate-pulse" />
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-violet/30 bg-violet/5 text-violet text-xs">
+            <GoogleDots />
             {c.alumni}
           </div>
         </div>

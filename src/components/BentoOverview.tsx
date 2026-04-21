@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Sparkles, ArrowUpRight } from "lucide-react";
 import ParkaoIcon from "./brand/ParkaoIcon";
 import OffiwizIcon from "./brand/OffiwizIcon";
+import GoogleDots from "./brand/GoogleDots";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export default function BentoOverview() {
@@ -45,7 +46,10 @@ export default function BentoOverview() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Badge variant="amber">{b.voice.tagA}</Badge>
-                <Badge variant="violet">{b.voice.tagB}</Badge>
+                <Badge variant="violet">
+                  <GoogleDots size="sm" className="mr-1.5" />
+                  {b.voice.tagB}
+                </Badge>
               </div>
               <div className="flex items-center gap-3 mb-3">
                 <Image
