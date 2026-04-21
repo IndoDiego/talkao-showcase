@@ -87,9 +87,10 @@ export default function Offiwiz() {
         <div className="flex flex-wrap gap-2">
           {[
             "Kotlin",
-            "ComPDFKit",
-            "PSPDFKit",
+            "OCR",
+            "PDF Annotations",
             "Smart Cropping",
+            "ML Kit",
             "Firebase",
             "Google Play Billing",
           ].map((tech) => (
