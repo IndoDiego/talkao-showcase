@@ -312,31 +312,27 @@ body {
   border-radius: 3px;
 }
 
-/* ───────────────────────── Google I/O 2026 accent orbs ─────────────────────────
-   Small bokeh in Google's 4 brand colors — strategic nod to the accelerator cohort. */
-.io-orb {
-  position: absolute;
-  border-radius: 9999px;
-  background: var(--orb-color);
-  box-shadow: 0 0 36px 8px var(--orb-color);
-  filter: blur(4px);
-  opacity: 0;
-  mix-blend-mode: screen;
-  animation-name: io-float;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-  will-change: transform, opacity;
-}
-@keyframes io-float {
+/* ───────────────────────── Google I/O dot signature ─────────────────────────
+   Strategic nod to Google I/O — 4 tiny dots in Google brand colors pulsing in
+   sequence (like Google's classic loader), placed inside the accelerator pill. */
+@keyframes io-dot-pulse {
   0%,
+  60%,
   100% {
-    transform: translate3d(0, 0, 0) scale(0.85);
-    opacity: 0.55;
+    opacity: 0.35;
+    transform: scale(0.85);
   }
-  50% {
-    transform: translate3d(14px, -12px, 0) scale(1.2);
-    opacity: 0.95;
+  30% {
+    opacity: 1;
+    transform: scale(1.15);
   }
+}
+.io-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  animation: io-dot-pulse 1.8s ease-in-out infinite;
 }
 
 /* ───────────────────────── Typewriter caret ───────────────────────── */
@@ -362,8 +358,9 @@ body {
   .aurora > span,
   .marquee-track,
   .gradient-border::before,
-  .io-orb {
+  .io-dot {
     animation: none !important;
+    opacity: 0.7 !important;
   }
   html {
     scroll-behavior: auto;

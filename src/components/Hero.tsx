@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import AchievementRotator from "./AchievementRotator";
 import BrandCarousel from "./BrandCarousel";
-import GoogleIOAccents from "./GoogleIOAccents";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 
@@ -16,7 +15,6 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col items-center justify-center px-5 overflow-hidden noise"
     >
       <div className="absolute inset-0 grid-bg opacity-80" />
-      <GoogleIOAccents />
       <div className="aurora">
         <span />
       </div>
@@ -31,9 +29,30 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 py-1 mb-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-[11px] text-muted font-mono"
+          className="inline-flex items-center gap-2.5 px-3 py-1 mb-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-[11px] text-muted font-mono"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
+          <span
+            aria-hidden
+            className="inline-flex items-center gap-[3px]"
+            title="Google Play Accelerator"
+          >
+            <span
+              className="io-dot"
+              style={{ background: "#4285F4", animationDelay: "0s" }}
+            />
+            <span
+              className="io-dot"
+              style={{ background: "#EA4335", animationDelay: "0.15s" }}
+            />
+            <span
+              className="io-dot"
+              style={{ background: "#FBBC04", animationDelay: "0.3s" }}
+            />
+            <span
+              className="io-dot"
+              style={{ background: "#34A853", animationDelay: "0.45s" }}
+            />
+          </span>
           {t.hero.badge}
         </motion.div>
 
