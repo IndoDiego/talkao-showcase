@@ -312,6 +312,31 @@ body {
   border-radius: 3px;
 }
 
+/* ───────────────────────── Google I/O 2026 accent orbs ─────────────────────────
+   Small bokeh in Google's 4 brand colors — strategic nod to the accelerator cohort. */
+.io-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(6px);
+  opacity: 0;
+  mix-blend-mode: screen;
+  animation-name: io-float;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  will-change: transform, opacity;
+}
+@keyframes io-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translate3d(12px, -10px, 0) scale(1.15);
+    opacity: 0.65;
+  }
+}
+
 /* ───────────────────────── Typewriter caret ───────────────────────── */
 @keyframes caret-blink {
   0%,
@@ -334,7 +359,8 @@ body {
   .aurora::after,
   .aurora > span,
   .marquee-track,
-  .gradient-border::before {
+  .gradient-border::before,
+  .io-orb {
     animation: none !important;
   }
   html {

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import AchievementRotator from "./AchievementRotator";
 import BrandCarousel from "./BrandCarousel";
+import GoogleIOAccents from "./GoogleIOAccents";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 
@@ -14,10 +15,11 @@ export default function Hero() {
       id="top"
       className="relative min-h-screen flex flex-col items-center justify-center px-5 overflow-hidden noise"
     >
+      <div className="absolute inset-0 grid-bg opacity-80" />
+      <GoogleIOAccents />
       <div className="aurora">
         <span />
       </div>
-      <div className="absolute inset-0 grid-bg opacity-80" />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.97 }}
