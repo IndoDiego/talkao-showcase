@@ -17,35 +17,39 @@ type Dot = {
 };
 
 const dots: Dot[] = [
-  { x: 14, y: 18, size: 14, color: GOOGLE_BLUE, delay: 0, duration: 9 },
-  { x: 86, y: 22, size: 10, color: GOOGLE_RED, delay: 1.8, duration: 11 },
-  { x: 24, y: 72, size: 12, color: GOOGLE_YELLOW, delay: 3.2, duration: 10 },
-  { x: 78, y: 68, size: 11, color: GOOGLE_GREEN, delay: 5.0, duration: 12 },
-  { x: 48, y: 86, size: 7, color: GOOGLE_BLUE, delay: 2.4, duration: 9 },
-  { x: 62, y: 14, size: 8, color: GOOGLE_GREEN, delay: 4.2, duration: 10 },
-  { x: 8, y: 50, size: 6, color: GOOGLE_RED, delay: 6.0, duration: 11 },
-  { x: 92, y: 48, size: 9, color: GOOGLE_YELLOW, delay: 0.8, duration: 12 },
+  { x: 12, y: 16, size: 26, color: GOOGLE_BLUE, delay: 0, duration: 9 },
+  { x: 87, y: 20, size: 20, color: GOOGLE_RED, delay: 1.8, duration: 11 },
+  { x: 22, y: 74, size: 24, color: GOOGLE_YELLOW, delay: 3.2, duration: 10 },
+  { x: 80, y: 68, size: 22, color: GOOGLE_GREEN, delay: 5.0, duration: 12 },
+  { x: 48, y: 88, size: 14, color: GOOGLE_BLUE, delay: 2.4, duration: 9 },
+  { x: 62, y: 12, size: 16, color: GOOGLE_GREEN, delay: 4.2, duration: 10 },
+  { x: 6, y: 48, size: 14, color: GOOGLE_RED, delay: 6.0, duration: 11 },
+  { x: 94, y: 46, size: 18, color: GOOGLE_YELLOW, delay: 0.8, duration: 12 },
+  { x: 36, y: 32, size: 10, color: GOOGLE_RED, delay: 3.6, duration: 10 },
+  { x: 70, y: 42, size: 12, color: GOOGLE_BLUE, delay: 5.4, duration: 11 },
 ];
 
 export default function GoogleIOAccents() {
   return (
     <div
       aria-hidden
-      className="absolute inset-0 pointer-events-none overflow-hidden"
+      className="absolute inset-0 pointer-events-none overflow-hidden z-[1]"
     >
       {dots.map((d, i) => (
         <span
           key={i}
           className="io-orb"
-          style={{
-            left: `${d.x}%`,
-            top: `${d.y}%`,
-            width: `${d.size}px`,
-            height: `${d.size}px`,
-            background: d.color,
-            animationDelay: `${d.delay}s`,
-            animationDuration: `${d.duration}s`,
-          }}
+          style={
+            {
+              left: `${d.x}%`,
+              top: `${d.y}%`,
+              width: `${d.size}px`,
+              height: `${d.size}px`,
+              "--orb-color": d.color,
+              animationDelay: `${d.delay}s`,
+              animationDuration: `${d.duration}s`,
+            } as React.CSSProperties
+          }
         />
       ))}
     </div>
