@@ -17,6 +17,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
+import { asset } from "@/lib/asset";
 
 interface ProjectionRowProps {
   label: string;
@@ -77,7 +78,7 @@ export default function VoiceTranslator() {
       <ScrollReveal>
         <div className="flex items-center gap-4 mb-4">
           <Image
-            src="/logos/talkao/voice-translator-icon.png"
+            src={asset("/logos/talkao/voice-translator-icon.png")}
             alt="Voice Translator"
             width={64}
             height={64}

@@ -4,43 +4,48 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { ReactNode, useEffect, useState } from "react";
 import OffiwizWordmark from "./brand/OffiwizWordmark";
+import { asset } from "@/lib/asset";
 
 type Brand = {
   id: string;
   render: () => ReactNode;
 };
 
-const brands: Brand[] = [
-  {
-    id: "talkao",
-    render: () => (
+const talkaoMaster: Brand = {
+  id: "talkao",
+  render: () => (
+    <Image
+      src={asset("/logos/talkao/logo-negative.png")}
+      alt="Talkao"
+      width={220}
+      height={62}
+      priority
+      className="h-14 md:h-16 w-auto"
+    />
+  ),
+};
+
+const voiceTranslator: Brand = {
+  id: "voice-translator",
+  render: () => (
+    <div className="flex items-center gap-3">
       <Image
-        src="/logos/talkao/logo-negative.png"
-        alt="Talkao"
-        width={220}
-        height={62}
-        priority
-        className="h-14 md:h-16 w-auto"
+        src={asset("/logos/talkao/voice-translator-icon.png")}
+        alt=""
+        width={64}
+        height={64}
+        className="h-12 md:h-14 w-auto rounded-[22%] shadow-lg shadow-cyan/20"
       />
-    ),
-  },
-  {
-    id: "voice-translator",
-    render: () => (
-      <div className="flex items-center gap-3">
-        <Image
-          src="/logos/talkao/voice-translator-icon.png"
-          alt=""
-          width={64}
-          height={64}
-          className="h-12 md:h-14 w-auto rounded-[22%] shadow-lg shadow-cyan/20"
-        />
-        <span className="text-3xl md:text-4xl font-bold tracking-tight">
-          Voice Translator
-        </span>
-      </div>
-    ),
-  },
+      <span className="text-3xl md:text-4xl font-bold tracking-tight">
+        Voice Translator
+      </span>
+    </div>
+  ),
+};
+
+const ecosystemBrands: Brand[] = [
+  talkaoMaster,
+  voiceTranslator,
   {
     id: "offiwiz",
     render: () => (
@@ -61,7 +66,7 @@ const brands: Brand[] = [
     render: () => (
       <div className="flex items-center gap-3">
         <Image
-          src="/logos/parkao/RGB/icono.png"
+          src={asset("/logos/parkao/RGB/icono.png")}
           alt=""
           width={80}
           height={80}
@@ -75,12 +80,59 @@ const brands: Brand[] = [
   },
 ];
 
+const talkaoAppBrands: Brand[] = [
+  talkaoMaster,
+  voiceTranslator,
+  {
+    id: "camera-translator",
+    render: () => (
+      <div className="flex items-center gap-3">
+        <Image
+          src={asset("/logos/talkao/CT/Icono_Nuevo_Formato512.png")}
+          alt=""
+          width={64}
+          height={64}
+          className="h-12 md:h-14 w-auto rounded-[22%] shadow-lg shadow-violet/20"
+        />
+        <span className="text-3xl md:text-4xl font-bold tracking-tight">
+          Camera Translator
+        </span>
+      </div>
+    ),
+  },
+  {
+    id: "ar-translator",
+    render: () => (
+      <div className="flex items-center gap-3">
+        <Image
+          src={asset("/logos/talkao/AR/icon-app.jpg")}
+          alt=""
+          width={64}
+          height={64}
+          className="h-12 md:h-14 w-auto rounded-[22%] shadow-lg shadow-amber/20"
+        />
+        <span className="text-3xl md:text-4xl font-bold tracking-tight">
+          AR Translator
+        </span>
+      </div>
+    ),
+  },
+];
+
 const INTERVAL_MS = 2800;
 
-export default function BrandCarousel() {
+export type BrandCarouselVariant = "ecosystem" | "talkao-apps";
+
+export default function BrandCarousel({
+  variant = "ecosystem",
+}: {
+  variant?: BrandCarouselVariant;
+}) {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+
+  const brands = variant === "talkao-apps" ? talkaoAppBrands : ecosystemBrands;
 
   useEffect(() => {
     if (reduce || paused) return;
@@ -88,7 +140,7 @@ export default function BrandCarousel() {
       setIndex((i) => (i + 1) % brands.length);
     }, INTERVAL_MS);
     return () => clearInterval(t);
-  }, [reduce, paused]);
+  }, [reduce, paused, brands.length]);
 
   const current = brands[index];
 
@@ -97,7 +149,11 @@ export default function BrandCarousel() {
       className="relative h-20 md:h-24 w-full flex items-center justify-center"
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
-      aria-label="Talkao ecosystem brands"
+      aria-label={
+        variant === "talkao-apps"
+          ? "Talkao translation apps"
+          : "Talkao ecosystem brands"
+      }
     >
       {/* Soft radial halo — brand violet (Pantone 267C) */}
       <div

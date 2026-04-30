@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Barlow, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { I18nProvider } from "@/i18n/I18nProvider";
+
+const GA_MEASUREMENT_ID = "G-Q2FW2TCV6M";
 
 // Talkao brand typography — Barlow (per identity guide)
 const barlow = Barlow({
@@ -42,6 +45,16 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <I18nProvider>{children}</I18nProvider>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+        </Script>
       </body>
     </html>
   );

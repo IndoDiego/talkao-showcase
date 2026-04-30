@@ -9,6 +9,7 @@ import ParkaoIcon from "./brand/ParkaoIcon";
 import OffiwizIcon from "./brand/OffiwizIcon";
 import GoogleDots from "./brand/GoogleDots";
 import { useI18n } from "@/i18n/I18nProvider";
+import { asset } from "@/lib/asset";
 
 export default function BentoOverview() {
   const { t } = useI18n();
@@ -35,7 +36,7 @@ export default function BentoOverview() {
       </ScrollReveal>
 
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[minmax(180px,auto)]">
-        {/* Voice Translator */}
+        {/* Talkao */}
         <ScrollReveal className="md:col-span-4 md:row-span-2">
           <SpotlightCard
             as="a"
@@ -45,25 +46,65 @@ export default function BentoOverview() {
           >
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Badge variant="amber">{b.voice.tagA}</Badge>
+                <Badge variant="amber">{b.talkao.tagA}</Badge>
                 <Badge variant="violet">
                   <GoogleDots size="sm" className="mr-1.5" />
-                  {b.voice.tagB}
+                  {b.talkao.tagB}
                 </Badge>
               </div>
               <div className="flex items-center gap-3 mb-3">
                 <Image
-                  src="/logos/talkao/voice-translator-icon.png"
+                  src={asset("/logos/talkao/icon-transparent.png")}
                   alt=""
                   width={56}
                   height={56}
                   className="w-12 h-12 rounded-[22%] shadow-lg shadow-cyan/20"
                 />
                 <h3 className="text-2xl md:text-3xl font-bold">
-                  {b.voice.title}
+                  {b.talkao.title}
                 </h3>
               </div>
-              <p className="text-muted text-sm max-w-md">{b.voice.desc}</p>
+              <p className="text-muted text-sm max-w-md">{b.talkao.desc}</p>
+
+              <div className="mt-5 max-w-md">
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-cyan/[0.06] border border-cyan/15">
+                  <Image
+                    src={asset("/logos/talkao/voice-translator-icon.png")}
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="w-9 h-9 rounded-[22%] shadow-md shadow-cyan/20 shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-sm font-semibold text-foreground">
+                        {b.talkao.apps.voiceTranslator.label}
+                      </span>
+                      <Badge variant="cyan">
+                        {b.talkao.apps.voiceTranslator.tag}
+                      </Badge>
+                    </div>
+                    <div className="text-[11px] font-mono text-muted mt-0.5">
+                      {b.talkao.apps.voiceTranslator.value}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-3 space-y-2 text-xs font-mono text-muted">
+                  <div className="flex justify-between">
+                    <span>{b.talkao.apps.cameraTranslator.label}</span>
+                    <span className="text-foreground">
+                      {b.talkao.apps.cameraTranslator.value}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>{b.talkao.apps.arTranslator.label}</span>
+                    <span className="text-foreground">
+                      {b.talkao.apps.arTranslator.value}
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="mt-8 grid grid-cols-3 gap-2 md:gap-4">
@@ -72,7 +113,7 @@ export default function BentoOverview() {
                   30M+
                 </div>
                 <div className="text-muted text-xs mt-0.5">
-                  {b.voice.statDownloads}
+                  {b.talkao.statDownloads}
                 </div>
               </div>
               <div>
@@ -80,7 +121,7 @@ export default function BentoOverview() {
                   €174K
                 </div>
                 <div className="text-muted text-xs mt-0.5">
-                  {b.voice.statRevenue}
+                  {b.talkao.statRevenue}
                 </div>
               </div>
               <div>
@@ -88,7 +129,7 @@ export default function BentoOverview() {
                   6.7×
                 </div>
                 <div className="text-muted text-xs mt-0.5">
-                  {b.voice.statRoas}
+                  {b.talkao.statRoas}
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useI18n } from "@/i18n/I18nProvider";
+import { asset } from "@/lib/asset";
 import SettingsToggle from "./SettingsToggle";
 
 export default function Navbar() {
@@ -36,7 +37,7 @@ export default function Navbar() {
       <nav className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
         <a href="#top" className="flex items-center gap-2 shrink-0">
           <Image
-            src="/logos/talkao/icon-transparent.png"
+            src={asset("/logos/talkao/icon-transparent.png")}
             alt="Talkao"
             width={28}
             height={28}

@@ -7,6 +7,7 @@ import BrandCarousel from "./BrandCarousel";
 import GoogleDots from "./brand/GoogleDots";
 import { Mail, Calendar, Link, FileDown } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
+import { asset } from "@/lib/asset";
 
 export default function Contact() {
   const { t } = useI18n();
@@ -38,7 +39,7 @@ export default function Contact() {
       icon: FileDown,
       label: c.links.pdf.label,
       sub: c.links.pdf.sub,
-      href: "/talkao-one-pager.pdf",
+      href: asset("/voice-translator-pitch.pdf"),
       variant: "amber" as const,
     },
   ];

@@ -42,7 +42,7 @@ export default function Hero() {
           transition={{ delay: 0.15, duration: 0.5 }}
           className="mb-12 md:mb-14"
         >
-          <BrandCarousel />
+          <BrandCarousel variant="talkao-apps" />
         </motion.div>
 
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95]">
